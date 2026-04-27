@@ -20,7 +20,7 @@ export default function Footer() {
         <div className="footer-brand">
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
             <img
-              src="/logo.svg"
+              src="/head.jpeg"
               alt="CODE HUB"
               style={{ width: 32, height: 32, objectFit: 'contain', filter: 'drop-shadow(0 0 6px rgba(251,191,36,0.3))' }}
               onError={(e) => {
@@ -102,7 +102,7 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <span className="footer-copyright">© 2026 CODE HUB. All rights reserved.</span>
+        <span className="footer-copyright">© 2025 CODE HUB. All rights reserved.</span>
         <div className="footer-legal">
           <a href="#">Privacy</a>
           <a href="#">Terms</a>
