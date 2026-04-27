@@ -1,9 +1,13 @@
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import p1Image from '../img/persons/p1.jpeg';
+import p2Image from '../img/persons/p2.jpeg';
+import p3Image from '../img/persons/p3.jpeg';
 
 const teamMembers = [
   {
     name: 'Md. Shourov Islam',
     initials: 'SI',
+    image: p1Image,
     title: 'Lead AI Engineer & Platform Architect',
     bio: 'Visionary engineer with expertise in building AI-powered systems, managing cloud infrastructure, and developing intelligent automation pipelines. Leading the technical direction of CODE HUB with innovation at every step.',
     skills: ['AI/ML Engineer', 'Python Developer', 'DevOps Engineer', 'Cyber Analytics', 'AI Research', 'NLP Specialist', 'Deep Learning', 'Cloud Infrastructure', 'Data Science', 'Automation Expert'],
@@ -11,6 +15,7 @@ const teamMembers = [
   {
     name: 'Tahmid Hasan',
     initials: 'TH',
+    image: p2Image,
     title: 'Backend Engineer & Infrastructure Lead',
     bio: 'Backend specialist focused on scalable server architectures, seamless API integrations, and robust DevOps workflows. Ensuring CODE HUB runs on a rock-solid infrastructure built for performance.',
     skills: ['DevOps Engineer', 'Laravel Developer', 'Backend Programmer', 'API Architect', 'Database Engineer', 'Server Management', 'CI/CD Pipeline Expert', 'PHP Developer'],
@@ -18,6 +23,7 @@ const teamMembers = [
   {
     name: 'Md. Mufthakherul Islam Miraz',
     initials: 'MI',
+    image: p3Image,
     title: 'Security Engineer & Systems Architect',
     bio: 'Security-first engineer with deep expertise in protecting systems, managing cloud security, and building resilient infrastructure. The guardian of CODE HUB\'s platform integrity and student data.',
     skills: ['DevOps Engineer', 'Cybersecurity Specialist', 'Firebase Developer', 'Network Security', 'Cloud Security', 'Penetration Tester', 'System Architecture', 'Infrastructure Security'],
@@ -73,7 +79,9 @@ export default function About() {
         <div className="team-grid">
           {teamMembers.map((member, i) => (
             <div key={i} className="team-card glow-card scroll-animate">
-              <div className="team-avatar glow-orbit">{member.initials}</div>
+              <div className="team-avatar glow-orbit">
+                <img src={member.image} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
+              </div>
               <div className="team-name glow-text">{member.name}</div>
               <div className="team-title">{member.title}</div>
               <div className="team-bio">{member.bio}</div>

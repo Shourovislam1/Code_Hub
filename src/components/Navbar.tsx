@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import headerImage from '../img/header/head.jpeg';
 
 const navItems = [
   { path: '/', label: 'Home' },
@@ -41,7 +42,7 @@ export default function Navbar() {
         <div className="navbar-inner">
           <Link to="/" className="nav-logo">
             <img
-              src="/head.jpeg"
+              src={headerImage}
               alt="CODE HUB"
               style={{ width: 36, height: 36, objectFit: 'contain', filter: 'drop-shadow(0 0 8px var(--primary-glow))', transition: 'filter 0.3s' }}
               onError={(e) => {

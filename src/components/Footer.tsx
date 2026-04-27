@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import headerImage from '../img/header/head.jpeg';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -20,7 +21,7 @@ export default function Footer() {
         <div className="footer-brand">
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.5rem' }}>
             <img
-              src="/head.jpeg"
+              src={headerImage}
               alt="CODE HUB"
               style={{ width: 32, height: 32, objectFit: 'contain', filter: 'drop-shadow(0 0 6px rgba(251,191,36,0.3))' }}
               onError={(e) => {
