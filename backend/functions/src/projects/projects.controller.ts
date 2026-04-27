@@ -12,11 +12,11 @@ export const getAllProjects = functions.https.onCall(async (data, context) => {
     let query = db.collection('projects');
 
     if (category) {
-      query = query.where('category', '==', category);
+      query = query.where('category', '==', category) as any;
     }
 
     if (type) {
-      query = query.where('type', '==', type);
+      query = query.where('type', '==', type) as any;
     }
 
     const snapshot = await query.orderBy('createdAt', 'desc').limit(limit).get();
@@ -29,7 +29,7 @@ export const getAllProjects = functions.https.onCall(async (data, context) => {
     return successResponse(projects, 'Projects retrieved successfully');
   } catch (error) {
     console.error('Error getting projects:', error);
-    throw new functions.https.HttpsError('internal', error.message);
+    throw new functions.https.HttpsError('internal', (error as Error).message);
   }
 });
 
@@ -52,7 +52,7 @@ export const getFeaturedProjects = functions.https.onCall(async (data, context) 
     return successResponse(projects, 'Featured projects retrieved successfully');
   } catch (error) {
     console.error('Error getting featured projects:', error);
-    throw new functions.https.HttpsError('internal', error.message);
+    throw new functions.https.HttpsError('internal', (error as Error).message);
   }
 });
 
@@ -76,7 +76,7 @@ export const getProjectById = functions.https.onCall(async (data, context) => {
     );
   } catch (error) {
     console.error('Error getting project:', error);
-    throw new functions.https.HttpsError('internal', error.message);
+    throw new functions.https.HttpsError('internal', (error as Error).message);
   }
 });
 
@@ -129,7 +129,7 @@ export const createProject = functions.https.onCall(async (data, context) => {
     );
   } catch (error) {
     console.error('Error creating project:', error);
-    throw new functions.https.HttpsError('internal', error.message);
+    throw new functions.https.HttpsError('internal', (error as Error).message);
   }
 });
 
@@ -166,7 +166,7 @@ export const updateProject = functions.https.onCall(async (data, context) => {
     return successResponse(updatedDoc.data(), 'Project updated successfully');
   } catch (error) {
     console.error('Error updating project:', error);
-    throw new functions.https.HttpsError('internal', error.message);
+    throw new functions.https.HttpsError('internal', (error as Error).message);
   }
 });
 
@@ -200,6 +200,6 @@ export const deleteProject = functions.https.onCall(async (data, context) => {
     return successResponse(null, 'Project deleted successfully');
   } catch (error) {
     console.error('Error deleting project:', error);
-    throw new functions.https.HttpsError('internal', error.message);
+    throw new functions.https.HttpsError('internal', (error as Error).message);
   }
 });

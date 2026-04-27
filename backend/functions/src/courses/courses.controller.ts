@@ -29,7 +29,7 @@ export const getAllCourses = functions.https.onCall(async (data, context) => {
     return successResponse(courses, 'Courses retrieved successfully');
   } catch (error) {
     console.error('Error getting courses:', error);
-    throw new functions.https.HttpsError('internal', error.message);
+    throw new functions.https.HttpsError('internal', (error as Error).message);
   }
 });
 
@@ -52,8 +52,8 @@ export const getCourseById = functions.https.onCall(async (data, context) => {
       'Course retrieved successfully'
     );
   } catch (error) {
-    console.error('Error getting course:', error);
-    throw new functions.https.HttpsError('internal', error.message);
+    console.error('Error updating course:', error);
+    throw new functions.https.HttpsError('internal', (error as Error).message);
   }
 });
 
@@ -109,7 +109,7 @@ export const createCourse = functions.https.onCall(async (data, context) => {
     );
   } catch (error) {
     console.error('Error creating course:', error);
-    throw new functions.https.HttpsError('internal', error.message);
+    throw new functions.https.HttpsError('internal', (error as Error).message);
   }
 });
 
@@ -146,7 +146,7 @@ export const updateCourse = functions.https.onCall(async (data, context) => {
     return successResponse(updatedDoc.data(), 'Course updated successfully');
   } catch (error) {
     console.error('Error updating course:', error);
-    throw new functions.https.HttpsError('internal', error.message);
+    throw new functions.https.HttpsError('internal', (error as Error).message);
   }
 });
 
@@ -179,7 +179,7 @@ export const deleteCourse = functions.https.onCall(async (data, context) => {
 
     return successResponse(null, 'Course deleted successfully');
   } catch (error) {
-    console.error('Error deleting course:', error);
-    throw new functions.https.HttpsError('internal', error.message);
+    console.error('Error updating course:', error);
+    throw new functions.https.HttpsError('internal', (error as Error).message);
   }
 });

@@ -43,7 +43,7 @@ export const submitContactForm = functions.https.onCall(async (data, context) =>
     );
   } catch (error) {
     console.error('Error submitting contact form:', error);
-    throw new functions.https.HttpsError('internal', error.message);
+    throw new functions.https.HttpsError('internal', (error as Error).message);
   }
 });
 
@@ -58,10 +58,15 @@ export const getContactForms = functions.https.onCall(async (data, context) => {
     let query = db.collection('contactForms');
 
     if (status) {
-      query = query.where('status', '==', status);
+      query = query.where('status', '==', status) as any;
     }
 
-    const snapshot = await query.orderBy('createdAt', 'desc').limit(limit).get();
+    const snapshot = await db
+      .collection('contactForms')
+      .where('status', '==', status)
+      .orderBy('createdAt', 'desc')
+      .limit(limit)
+      .get();
 
     const forms = snapshot.docs.map(doc => ({
       id: doc.id,
@@ -71,7 +76,7 @@ export const getContactForms = functions.https.onCall(async (data, context) => {
     return successResponse(forms, 'Contact forms retrieved successfully');
   } catch (error) {
     console.error('Error getting contact forms:', error);
-    throw new functions.https.HttpsError('internal', error.message);
+    throw new functions.https.HttpsError('internal', (error as Error).message);
   }
 });
 
@@ -109,6 +114,6 @@ export const updateContactFormStatus = functions.https.onCall(async (data, conte
     return successResponse(updatedDoc.data(), 'Status updated successfully');
   } catch (error) {
     console.error('Error updating contact form status:', error);
-    throw new functions.https.HttpsError('internal', error.message);
+    throw new functions.https.HttpsError('internal', (error as Error).message);
   }
 });

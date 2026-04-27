@@ -44,7 +44,7 @@ export const registerUser = functions.https.onCall(async (data, context) => {
     return successResponse(userData, 'User registered successfully');
   } catch (error) {
     console.error('Error registering user:', error);
-    throw new functions.https.HttpsError('internal', error.message);
+    throw new functions.https.HttpsError('internal', (error as Error).message);
   }
 });
 
@@ -63,8 +63,8 @@ export const getUserProfile = functions.https.onCall(async (data, context) => {
 
     return successResponse(userDoc.data(), 'User profile retrieved');
   } catch (error) {
-    console.error('Error getting user profile:', error);
-    throw new functions.https.HttpsError('internal', error.message);
+    console.error('Error updating user profile:', error);
+    throw new functions.https.HttpsError('internal', (error as Error).message);
   }
 });
 
@@ -94,7 +94,7 @@ export const updateUserProfile = functions.https.onCall(async (data, context) =>
     return successResponse(updatedDoc.data(), 'Profile updated successfully');
   } catch (error) {
     console.error('Error updating user profile:', error);
-    throw new functions.https.HttpsError('internal', error.message);
+    throw new functions.https.HttpsError('internal', (error as Error).message);
   }
 });
 
