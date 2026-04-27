@@ -31,12 +31,12 @@ const teamMembers = [
 ];
 
 const milestones = [
-  { year: '2023', text: 'CODE HUB concept born — a vision to democratize tech education for everyone.' },
-  { year: '2023', text: 'Core team assembled: AI, Backend, and Security experts joined forces.' },
-  { year: '2024', text: 'Platform development began with focus on interactive, project-based learning.' },
-  { year: '2024', text: 'First cohort of 50 students enrolled. Python and Web Dev courses launched.' },
-  { year: '2025', text: 'Expanded to 20+ courses across 6 categories. AI Lab introduced.' },
-  { year: '2025', text: 'Community grew to 500+ active students with a 95% satisfaction rate.' },
+  { year: '2025', text: 'CODE HUB concept born — a vision to democratize tech education for everyone.' },
+  { year: '2025', text: 'Core team assembled: AI, Backend, and Security experts joined forces.' },
+  { year: '2025', text: 'Platform development began with focus on interactive, project-based learning.' },
+  { year: '2026', text: 'First cohort of 50 students enrolled. Python and Web Dev courses launched.' },
+  { year: '2026', text: 'Expanded to 20+ courses across 6 categories. AI Lab introduced.' },
+  { year: '2026', text: 'Community grew to 500+ active students with a 95% satisfaction rate.' },
 ];
 
 export default function About() {

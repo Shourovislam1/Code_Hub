@@ -103,7 +103,7 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <span className="footer-copyright">© 2025 CODE HUB. All rights reserved.</span>
+        <span className="footer-copyright">© 2026 CODE HUB. All rights reserved.</span>
         <div className="footer-legal">
           <a href="#">Privacy</a>
           <a href="#">Terms</a>

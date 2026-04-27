@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { createPortal } from 'react-dom';
 
 const projectFilters = ['All', 'Python', 'Web', 'AI/ML', 'Competition', 'Documentation'];
 
@@ -151,7 +152,7 @@ export default function Projects() {
       </section>
 
       {/* Modal */}
-      {modalProject && (
+      {modalProject && createPortal(
         <div className="modal-overlay" onClick={() => setModalProject(null)}>
           <div className="modal-content glow-card" onClick={e => e.stopPropagation()} style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }}>
             <button className="modal-close" onClick={() => setModalProject(null)}>✕</button>
@@ -169,7 +170,8 @@ export default function Projects() {
               <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Category: {modalProject.cat}</span>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
