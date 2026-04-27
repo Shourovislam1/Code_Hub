@@ -1,13 +1,78 @@
+import { useState } from 'react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { createPortal } from 'react-dom';
 
 const aiTools = [
-  { name: 'ChatGPT', desc: 'Advanced AI language model for code generation, debugging, and learning assistance. Get instant help with programming questions.', useCase: 'Code generation, debugging, learning', icon: '🤖', gradient: 'linear-gradient(135deg, #10A37F, #1A1A2E)' },
-  { name: 'GitHub Copilot', desc: 'AI pair programmer that suggests code completions and entire functions in your editor in real-time.', useCase: 'Code completion, refactoring', icon: '✈️', gradient: 'linear-gradient(135deg, #333, #7B2FFF)' },
-  { name: 'Midjourney', desc: 'AI image generation tool for creating stunning visuals, UI mockups, and design assets for web projects.', useCase: 'UI design, image generation', icon: '🎨', gradient: 'linear-gradient(135deg, #FF3D71, #7B2FFF)' },
-  { name: 'Hugging Face', desc: 'Open-source platform with thousands of pre-trained AI models for NLP, computer vision, and audio tasks.', useCase: 'Model deployment, NLP tasks', icon: '🤗', gradient: 'linear-gradient(135deg, #FFD21E, #FF9D00)' },
-  { name: 'Google Colab', desc: 'Cloud-based Jupyter notebook environment with free GPU access for training machine learning models.', useCase: 'ML training, data analysis', icon: '☁️', gradient: 'linear-gradient(135deg, #4285F4, #34A853)' },
-  { name: 'TensorFlow Playground', desc: 'Interactive visualization of neural networks. Experiment with different architectures and see results instantly.', useCase: 'Learning neural networks', icon: '🧠', gradient: 'linear-gradient(135deg, #FF6F00, #FF8F00)' },
-  { name: 'Kaggle', desc: 'The world\'s largest data science community with datasets, competitions, and notebooks for hands-on ML practice.', useCase: 'Competitions, datasets, learning', icon: '📊', gradient: 'linear-gradient(135deg, #20BEFF, #0D1520)' },
+  { 
+    name: 'ChatGPT', 
+    desc: 'Advanced AI language model for code generation, debugging, and learning assistance. Get instant help with programming questions.', 
+    useCase: 'Code generation, debugging, learning', 
+    icon: '🤖', 
+    gradient: 'linear-gradient(135deg, #10A37F, #1A1A2E)',
+    details: 'ChatGPT is a powerful AI assistant that can help you write code, debug errors, explain complex concepts, and provide learning resources. It supports multiple programming languages and can generate entire functions, classes, or even complete applications based on your requirements.',
+    features: ['Code generation & completion', 'Bug detection & fixing', 'Code explanation', 'Documentation writing', 'Learning assistance'],
+    pricing: 'Free tier available, Plus subscription for advanced features'
+  },
+  { 
+    name: 'GitHub Copilot', 
+    desc: 'AI pair programmer that suggests code completions and entire functions in your editor in real-time.', 
+    useCase: 'Code completion, refactoring', 
+    icon: '✈️', 
+    gradient: 'linear-gradient(135deg, #333, #7B2FFF)',
+    details: 'GitHub Copilot is an AI-powered code completion tool that works directly in your IDE. It learns from your codebase and context to provide intelligent suggestions, helping you write code faster and with fewer errors.',
+    features: ['Real-time code suggestions', 'Multi-language support', 'Context-aware completions', 'Function generation', 'Code refactoring assistance'],
+    pricing: 'Free for students, $10/month for individuals'
+  },
+  { 
+    name: 'Midjourney', 
+    desc: 'AI image generation tool for creating stunning visuals, UI mockups, and design assets for web projects.', 
+    useCase: 'UI design, image generation', 
+    icon: '🎨', 
+    gradient: 'linear-gradient(135deg, #FF3D71, #7B2FFF)',
+    details: 'Midjourney is an AI image generation tool that creates high-quality images from text descriptions. Perfect for generating UI mockups, icons, illustrations, and design assets for your web and mobile applications.',
+    features: ['Text-to-image generation', 'Style variations', 'High-resolution output', 'Commercial use license', 'API access'],
+    pricing: '$10/month Basic, $30/month Standard, $60/month Pro'
+  },
+  { 
+    name: 'Hugging Face', 
+    desc: 'Open-source platform with thousands of pre-trained AI models for NLP, computer vision, and audio tasks.', 
+    useCase: 'Model deployment, NLP tasks', 
+    icon: '🤗', 
+    gradient: 'linear-gradient(135deg, #FFD21E, #FF9D00)',
+    details: 'Hugging Face is the leading platform for open-source AI models. It provides access to thousands of pre-trained models for various tasks including text generation, translation, image classification, and more.',
+    features: ['Model hub with 100K+ models', 'Easy model integration', 'Training & fine-tuning', 'Inference API', 'Community collaboration'],
+    pricing: 'Free for most models, paid plans for enterprise features'
+  },
+  { 
+    name: 'Google Colab', 
+    desc: 'Cloud-based Jupyter notebook environment with free GPU access for training machine learning models.', 
+    useCase: 'ML training, data analysis', 
+    icon: '☁️', 
+    gradient: 'linear-gradient(135deg, #4285F4, #34A853)',
+    details: 'Google Colab is a free cloud service that provides GPU/TPU access for machine learning. It allows you to write and execute Python code in your browser with zero configuration required.',
+    features: ['Free GPU/TPU access', 'Pre-installed ML libraries', 'Google Drive integration', 'Collaborative editing', 'Easy sharing'],
+    pricing: 'Free tier available, Colab Pro for $9.99/month'
+  },
+  { 
+    name: 'TensorFlow Playground', 
+    desc: 'Interactive visualization of neural networks. Experiment with different architectures and see results instantly.', 
+    useCase: 'Learning neural networks', 
+    icon: '🧠', 
+    gradient: 'linear-gradient(135deg, #FF6F00, #FF8F00)',
+    details: 'TensorFlow Playground is an interactive web tool for visualizing neural networks in your browser. It\'s perfect for learning how neural networks work by experimenting with different architectures, activation functions, and hyperparameters.',
+    features: ['Interactive neural network visualization', 'Real-time training', 'Multiple datasets', 'Custom architectures', 'Educational resources'],
+    pricing: 'Completely free and open-source'
+  },
+  { 
+    name: 'Kaggle', 
+    desc: 'The world\'s largest data science community with datasets, competitions, and notebooks for hands-on ML practice.', 
+    useCase: 'Competitions, datasets, learning', 
+    icon: '📊', 
+    gradient: 'linear-gradient(135deg, #20BEFF, #0D1520)',
+    details: 'Kaggle is the world\'s largest data science community. It offers thousands of datasets, coding competitions, and Jupyter notebooks for hands-on machine learning practice and collaboration.',
+    features: ['50K+ public datasets', 'Data science competitions', 'Kernels (notebooks)', 'Discussion forums', 'Learning resources'],
+    pricing: 'Free to use, Kaggle Learn for free courses'
+  },
 ];
 
 const studentProjects = [
@@ -19,6 +84,7 @@ const studentProjects = [
 
 export default function AiLab() {
   const sectionRef = useScrollAnimation();
+  const [modalTool, setModalTool] = useState<typeof aiTools[0] | null>(null);
 
   return (
     <div ref={sectionRef}>
@@ -72,7 +138,7 @@ export default function AiLab() {
               <div className="ai-tool-name">{tool.name}</div>
               <div className="ai-tool-desc">{tool.desc}</div>
               <div className="ai-tool-use-case">Use case: {tool.useCase}</div>
-              <button className="btn-secondary btn-sm">Learn More →</button>
+              <button className="btn-secondary btn-sm" onClick={() => setModalTool(tool)}>Learn More →</button>
             </div>
           ))}
         </div>
@@ -100,6 +166,31 @@ export default function AiLab() {
           ))}
         </div>
       </section>
+
+      {/* Modal */}
+      {modalTool && createPortal(
+        <div className="modal-overlay" onClick={() => setModalTool(null)}>
+          <div className="modal-content glow-card" onClick={e => e.stopPropagation()} style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }}>
+            <button className="modal-close" onClick={() => setModalTool(null)}>✕</button>
+            <div style={{ height: 180, borderRadius: 14, overflow: 'hidden', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '4rem', background: modalTool.gradient }}>
+              {modalTool.icon}
+            </div>
+            <h3 className="glow-text" style={{ fontFamily: 'Orbitron, sans-serif', fontSize: '1.3rem', color: 'var(--text)', margin: '0.75rem 0' }}>{modalTool.name}</h3>
+            <p style={{ color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: '1rem' }}>{modalTool.details}</p>
+            <div style={{ marginBottom: '1rem' }}>
+              <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text)', marginBottom: '0.5rem' }}>Key Features:</div>
+              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                {modalTool.features.map((feature, j) => <span key={j} className="tech-pill tag-glow">{feature}</span>)}
+              </div>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem' }}>
+              <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Use case: {modalTool.useCase}</span>
+              <span style={{ color: 'var(--primary)', fontSize: '0.85rem', fontWeight: 600 }}>{modalTool.pricing}</span>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }
